@@ -1,1 +1,8 @@
 rootProject.name = 'Balgoorm_BackEnd'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
