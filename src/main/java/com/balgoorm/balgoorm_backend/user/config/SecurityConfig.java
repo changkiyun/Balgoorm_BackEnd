@@ -2,6 +2,7 @@ package com.balgoorm.balgoorm_backend.user.config;
 
 import com.balgoorm.balgoorm_backend.user.auth.CustomAuthenticationSuccessHandler;
 import com.balgoorm.balgoorm_backend.user.auth.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
