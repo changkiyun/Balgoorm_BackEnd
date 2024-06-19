@@ -1,25 +1,7 @@
+FROM openjdk:17
 
-FROM bellsoft/liberica-openjdk-alpine:17 AS build
+WORKDIR /app
 
-WORKDIR /usr/src/app
+COPY ./build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar /app/
 
-COPY build.gradle settings.gradle gradlew gradlew.bat /usr/src/app/
-COPY gradle /usr/src/app/gradle
-COPY src /usr/src/app/src
-COPY code /usr/src/app/code
-
-RUN chmod +x ./gradlew
-
-RUN ./gradlew clean build
-
-
-FROM bellsoft/liberica-openjdk-alpine:17
-
-WORKDIR /usr/src/app
-
-
-COPY --from=build /usr/src/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar ./build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar
-
-EXPOSE 8080
-
-CMD ["java", "-jar", "build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
