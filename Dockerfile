@@ -1,17 +1,13 @@
 FROM bellsoft/liberica-openjdk-alpine:17
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY . .
 
-RUN chmod +x ./gradlew
+# gradlew에 실행 권한 부여
+RUN chmod +x gradlew
 
-# 프록시 설정 추가
-ENV http_proxy=ws://localhost:8080/chat/**
-ENV https_proxy=ws://localhost:8080/chat/**
-
-RUN ./gradlew clean build
-
-EXPOSE 8080
+# Gradle 캐시를 활용하여 빌드 시간 단축
+RUN ./gradlew bootJar
 
 CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
