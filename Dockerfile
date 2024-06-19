@@ -1,16 +1,17 @@
-FROM openjdk:17
+FROM bellsoft/liberica-openjdk-alpine:17
 
-WORKDIR /app
-
-# 필요한 패키지 설치
-RUN apk update && apk add findutils
+WORKDIR /usr/src/app
 
 COPY . .
 
-# gradlew에 실행 권한 부여
-RUN chmod +x gradlew
+RUN chmod +x ./gradlew
 
-# Gradle 캐시를 활용하여 빌드 시간 단축
-RUN ./gradlew bootJar
+# 프록시 설정 추가
+ENV http_proxy=http://localhost:3000
+ENV https_proxy=http://localhost:3000
+
+RUN ./gradlew clean build
+
+EXPOSE 8080
 
 CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
