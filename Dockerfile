@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY ./ ./
 
-RUN  ./gradlew bootJar 
+RUN  chmode +x ./gradlew bootJar 
 
 CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
