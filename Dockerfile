@@ -11,11 +11,14 @@ COPY build.gradle /app/build.gradle
 
 # 필요한 소스 파일들을 복사합니다
 COPY src /app/src
+COPY goorm.manifest /app/goorm.manifest
+COPY uploads /app/uploads
 
 # gradlew에 실행 권한 부여
 RUN chmod +x gradlew
 
 # Gradle 캐시를 활용하여 빌드 시간 단축
-RUN ./gradlew bootJar
+RUN ./gradlew --no-daemon -Dorg.gradle.internal.http.socketTimeout=60000 -Dorg.gradle.internal.http.connectionTimeout=60000 bootJar
 
+# 최종 빌드 및 jar 파일 실행
 CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
