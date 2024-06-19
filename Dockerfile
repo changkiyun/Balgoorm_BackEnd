@@ -7,6 +7,9 @@ WORKDIR /home/gradle/project
 # 필요한 파일들 복사
 COPY . .
 
+# Gradle 캐시 활용
+VOLUME /root/.gradle
+
 # Gradle 빌드 실행
 RUN gradle bootJar --no-daemon
 
