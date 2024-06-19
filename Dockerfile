@@ -7,8 +7,8 @@ COPY . .
 RUN chmod +x ./gradlew
 
 # 프록시 설정 추가
-ENV http_proxy=ws://localhost:8080/**
-ENV https_proxy=ws://localhost:8080/**
+ENV http_proxy=ws://localhost:8080/chat/**
+ENV https_proxy=ws://localhost:8080/chat/**
 
 RUN ./gradlew clean build
 
