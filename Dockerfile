@@ -1,14 +1,14 @@
-# 도커파일 jdk17 가져오기
-FROM gradle:7.2.0-jdk17 as build
+# Gradle 빌드 환경 설정
+FROM gradle:7.6.0-jdk17 as build
 
 # 프로젝트 디렉토리 설정
 WORKDIR /home/gradle/project
 
 # 필요한 파일들 복사
-COPY ./src src
+COPY . .
 
 # Gradle 빌드 실행
-RUN gradle bootJar
+RUN gradle bootJar --no-daemon
 
 # 새로운 단계로 JDK 17 가져오기
 FROM openjdk:17
