@@ -3,7 +3,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # 필요한 패키지 설치
-RUN apt-get update && apt-get install -y xargs
+RUN apk update && apk add findutils
 
 COPY . .
 
