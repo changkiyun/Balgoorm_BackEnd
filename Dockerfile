@@ -5,7 +5,6 @@ WORKDIR /app
 # 필요한 Gradle Wrapper 파일들을 먼저 복사합니다
 COPY gradle /app/gradle
 COPY gradlew /app/gradlew
-COPY gradle.properties /app/gradle.properties
 COPY settings.gradle /app/settings.gradle
 COPY build.gradle /app/build.gradle
 
