@@ -1,27 +1,13 @@
-
-FROM gradle:7.3.3-jdk17 as build
-
-
-WORKDIR /home/gradle/app
-
-
-COPY build.gradle settings.gradle ./
-COPY gradle ./gradle
-
-
-RUN gradle build -x test --stacktrace
-
-COPY src ./src
-
-
-RUN gradle bootJar --stacktrace
-
 FROM bellsoft/liberica-openjdk-alpine:17
 
-WORKDIR /app
+CMD ["./gradlew", "clean", "build"]
 
-COPY --from=build /home/gradle/app/build/libs/*.jar app.jar
+VOLUME /tmp
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ARG JAR_FILE=build/libs/*.jar
+
+COPY ${JAR_FILE} app.jar
 
 EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app.jar"]
