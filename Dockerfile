@@ -1,8 +1,10 @@
 FROM bellsoft/liberica-openjdk-alpine:17
 
-CMD ["./gradlew", "clean", "build"]
+WORKDIR /app
 
-VOLUME /tmp
+COPY . /app
+
+RUN ./gradlew clean build
 
 ARG JAR_FILE=build/libs/*.jar
 
