@@ -47,7 +47,7 @@ public class SecurityConfig {
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/member/**", "/board/**").hasRole("USER")
 //                        .requestMatchers("/login","/signup").anonymous()
-                        .anyRequest().permitAll() // 모든 요청 허용
+                                .anyRequest().permitAll() // 모든 요청 허용
                 )
                 .formLogin(login -> login
                         .loginPage("/login.html") // 로그인 폼
