@@ -16,4 +16,4 @@ RUN ./gradlew clean build
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "build/libs/Balgoorm-BackEnd.jar"]
+CMD ["java", "-jar", "build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
