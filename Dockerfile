@@ -1,11 +1,21 @@
-# OpenJDK 17을 사용하여 이미지 생성
-FROM openjdk:17
+FROM bellsoft/liberica-openjdk-alpine:17
 
-# 이미지 내에서 애플리케이션 파일을 보관할 디렉토리 생성 및 설정
 WORKDIR /app
 
-# 빌드된 JAR 파일을 컨테이너의 루트 디렉토리로 복사
-COPY build/libs/Balgoorm_BackEnd-0.0.1-SNAPSHOT.jar /app/
+# 필요한 Gradle Wrapper 파일들을 먼저 복사합니다
+COPY gradle /app/gradle
+COPY gradlew /app/gradlew
+COPY gradle.properties /app/gradle.properties
+COPY settings.gradle /app/settings.gradle
+COPY build.gradle /app/build.gradle
 
-# JAR 파일을 실행하는 명령어 설정
-CMD ["java", "-jar", "/app/Balgoorm_BackEnd-0.0.1-SNAPSHOT.jar"]
+# 필요한 소스 파일들을 복사합니다
+COPY src /app/src
+
+# gradlew에 실행 권한 부여
+RUN chmod +x gradlew
+
+# Gradle 캐시를 활용하여 빌드 시간 단축
+RUN ./gradlew 
+
+CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
