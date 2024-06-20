@@ -3,7 +3,3 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
-configMapGenerator:
-  - name: init-db
-    files:
-      - configs/init.sql
