@@ -1,19 +1,16 @@
-FROM bellsoft/liberica-openjdk-alpine:17
+FROM krmp-d2hub-idock.9rum.cc/goorm/gradle:7.3.1-jdk17
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# 필요한 파일을 복사
 COPY . .
 
-# Gradle Wrapper에 실행 권한 부여
-RUN chmod +x ./gradlew
+# gradle 빌드 시 proxy 설정을 gradle.properties에 추가
+RUN echo "systemProp.http.proxyHost=krmp-proxy.9rum.cc\nsystemProp.http.proxyPort=3128\nsystemProp.https.proxyHost=krmp-proxy.9rum.cc\nsystemProp.https.proxyPort=3128" > /root/.gradle/gradle.properties
 
-# 로컬 시스템에서 다운로드한 종속성을 복사
-COPY .gradle /root/.gradle
+# gradlew에 실행 권한 부여
+RUN chmod +x gradlew
 
-# Gradle 빌드를 실행하여 종속성을 미리 다운로드
+# Gradle 캐시를 활용하여 빌드 시간 단축
 RUN ./gradlew clean build
 
-EXPOSE 8080
-
-CMD ["java", "-jar", "build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/build/libs/Balgoorm_BackEnd-0.0.1-SNAPSHOT.jar"]

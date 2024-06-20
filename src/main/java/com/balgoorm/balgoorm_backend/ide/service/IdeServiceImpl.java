@@ -58,23 +58,23 @@ public class IdeServiceImpl implements IdeService {
      * 어플리케이션 시작과 동시에 미리 사용할 dockerContainer 생성
      * @throws IOException
      */
-    @PostConstruct
-    public void createContainers() throws IOException {
-        String[] images = {"openjdk-with-time", "gcc-with-time", "python-with-time"};
-        LanguageType[] languages = {LanguageType.JAVA, LanguageType.CPP, LanguageType.PYTHON};
-        for (int i = 0; i < images.length; i++) {
-            String projectDir = System.getProperty("user.dir") + "/code/" + getFileExtension(languages[i]);
-            Files.createDirectories(Paths.get(projectDir));
-
-            CreateContainerResponse container = dockerClient.createContainerCmd(images[i])
-                    .withHostConfig(new HostConfig().withBinds(new Bind(projectDir, new Volume("/src"))))
-                    .withCmd("/bin/sh", "-c", "while :; do sleep 1; done")
-                    .withWorkingDir("/src")
-                    .exec();
-            log.info(getFileExtension(languages[i]) + " , " + container.getId());
-            containers.put(getFileExtension(languages[i]), container.getId());
-        }
-    }
+//    @PostConstruct
+//    public void createContainers() throws IOException {
+//        String[] images = {"openjdk-with-time", "gcc-with-time", "python-with-time"};
+//        LanguageType[] languages = {LanguageType.JAVA, LanguageType.CPP, LanguageType.PYTHON};
+//        for (int i = 0; i < images.length; i++) {
+//            String projectDir = System.getProperty("user.dir") + "/code/" + getFileExtension(languages[i]);
+//            Files.createDirectories(Paths.get(projectDir));
+//
+//            CreateContainerResponse container = dockerClient.createContainerCmd(images[i])
+//                    .withHostConfig(new HostConfig().withBinds(new Bind(projectDir, new Volume("/src"))))
+//                    .withCmd("/bin/sh", "-c", "while :; do sleep 1; done")
+//                    .withWorkingDir("/src")
+//                    .exec();
+//            log.info(getFileExtension(languages[i]) + " , " + container.getId());
+//            containers.put(getFileExtension(languages[i]), container.getId());
+//        }
+//    }
 
     /**
      * 어플리케이션이 종료될 때 사용중이였던 컨테이너를 모두 종료시킴
