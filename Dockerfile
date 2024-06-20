@@ -18,4 +18,4 @@ RUN chmod +x gradlew
 # Gradle 캐시를 활용하여 빌드 시간 단축
 RUN ./gradlew 
 
-CMD ["java", "-jar", "/app/build/libs/Balgoorm-BackEnd-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/build/libs/Balgoorm_BackEnd-0.0.1-SNAPSHOT.jar"]
